@@ -1,14 +1,14 @@
 from flask import Flask, render_template, request, redirect, url_for, jsonify, abort
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
+#from flask_migrate import Migrate
 import sys
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://ahmed:m06ahmed@localhost:5432/todoapp'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://oawoluvqrpeqem:1f0d519931d781c46ab1d73545fa3ef12263dfc88096b185cbf9cb3ed5d6f5c8@ec2-54-90-13-87.compute-1.amazonaws.com:5432/d5q7bkuv7tc8qm'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-migrate = Migrate(app, db)
+#migrate = Migrate(app, db)
 
 
 class Todo(db.Model):
@@ -32,7 +32,7 @@ class TodoList(db.Model):
     def __repr__(self):
         return f'<TodoList ID: {self.id}, name: {self.name}, todos: {self.todos}>'
 
-#db.create_all()
+db.create_all()
 @app.route('/todos/create', methods=['POST'])
 def create_todo():
     error = False
