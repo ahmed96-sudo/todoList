@@ -38,19 +38,19 @@
           <label for="todolist">Create List:</label>
           <input type="text" name="todolist" id="todolist-input" placeholder="A new List" data-id="{{ active_list.id }}"/>
           <button type="submit">Create List</button>
-        </form>        
+        </form>
       <ul id="lists">
         {% for list in lists %}
-        <li>
-          <input type="checkbox" data-id="{{ list.id }}" class="list-check-completed">
-          <a href="/lists/{{ list.id }}">{{ list.name }}</a>
-          <button class="delete-list" data-id="{{ list.id }}">&cross;</button>
-        </li>
-    {% endfor %}
+          <li>
+            <input type="checkbox" data-id="{{ list.id }}" class="list-check-completed">
+            <a href="/lists/{{ list.id }}">{{ list.name }}</a>
+            <button class="delete-list" data-id="{{ list.id }}">&cross;</button>
+          </li>
+        {% endfor %}
       </ul>
     </div>
 
-    <div class="todos-wrapper">      
+    <div class="todos-wrapper">
       <h4>TODO ITEMS</h4>
       <form action="/todos/create" method="POST" id="todo-form">
         <input id="list_id" type="hidden" value="{{ active_list.id }}">
@@ -60,18 +60,17 @@
       </form>
       <div id="error" class="hidden">
         An error occurred, please try again.
-      </div>   
+      </div>
         <h4>{{ active_list.name }}</h4>
         <ul id="todos">
           {% for todo in todos %}
-          <li>
-            <input data-id="{{ todo.id }}" class="todo-check-completed" type="checkbox" name="complete" id="complete" {% if todo.completed %} checked {%endif%} />
-            {{ todo.description }}
-            <button class="delete-todo" data-id="{{ todo.id }}">&cross;</button>
-          </li>
+            <li>
+              <input data-id="{{ todo.id }}" class="todo-check-completed" type="checkbox" name="complete" id="complete" {% if todo.completed %} checked {%endif%} />
+              {{ todo.description }}
+              <button class="delete-todo" data-id="{{ todo.id }}">&cross;</button>
+            </li>
           {% endfor %}
         </ul>
-            
     </div>
 
     <script>
@@ -83,7 +82,6 @@
           checkbox.onchange = function (e) {
               if (e.target.checked) {
                   const listId = e.target.dataset.id;
-
                   fetch('/lists/' + listId + '/set-completed', {
                       method: 'POST',
                       headers: {
@@ -107,9 +105,6 @@
               }
           }
       }
-
-
-
 
       const todoCheckboxes = document.querySelectorAll('.todo-check-completed');
       for (let i = 0; i < todoCheckboxes.length; i++) {
@@ -138,7 +133,6 @@
       }
 
       deleteBtns = document.querySelectorAll(".delete-todo");
-      
       for (let i = 0; i < deleteBtns.length; i++) {
         const deleteBtn = deleteBtns[i];
         deleteBtn.onclick = function(e) {
@@ -160,7 +154,6 @@
       }
 
       deleteListBtns = document.querySelectorAll(".delete-list");
-      
       for (let i = 0; i < deleteListBtns.length; i++) {
         const deleteBtn = deleteListBtns[i];
         deleteBtn.onclick = function(e) {
@@ -183,10 +176,8 @@
         };
       }
 
-      
       document.getElementById('todo-form').onsubmit = function (e) {
         e.preventDefault();
-
         fetch('/todos/create', {
             method: 'POST',
             body: JSON.stringify({
@@ -215,7 +206,6 @@
 
       document.getElementById('list-form').onsubmit = function (e) {
         e.preventDefault();
-
         fetch('/lists/create', {
             method: 'POST',
             body: JSON.stringify({
@@ -240,8 +230,6 @@
             document.getElementById('error').className = '';
         })
       }
-
-
     </script>
   </body>
 </html>
