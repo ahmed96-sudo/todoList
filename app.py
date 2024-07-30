@@ -6,6 +6,7 @@ import sys
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://default:iMJ1T0yWjtLw@ep-fragrant-boat-a48txran.us-east-1.aws.neon.tech:5432/todolist-postgres'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# postgres://default:iMJ1T0yWjtLw@ep-fragrant-boat-a48txran.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require
 db = SQLAlchemy(app)
 #migrate = Migrate(app, db)
 
